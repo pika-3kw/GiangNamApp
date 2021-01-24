@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { Message } from '@giang-nam-app/api-interfaces';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Container } from '@material-ui/core';
+
+import BottomNav from './components/BottomNavigation';
+
+import Home from './screens/Home';
+import Schedule from './screens/Schedule';
+import Money from './screens/Money';
 
 export const App = () => {
-  const [m, setMessage] = useState<Message>({ message: '' });
-
-  useEffect(() => {
-    fetch('/api')
-      .then((r) => r.json())
-      .then(setMessage);
-  }, []);
-
   return (
-    <>
-      <div style={{ textAlign: 'center' }}>
-        <h1>Welcome to nam-dep-trai!</h1>
-        <img
-          width="450"
-          src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-        />
-      </div>
-      <div>{m.message}</div>
-    </>
+    <Router>
+      <BottomNav />
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/schedule">
+          <Schedule />
+        </Route>
+        <Route path="/money">
+          <Money />
+        </Route>
+      </Switch>
+    </Router>
   );
 };
 
